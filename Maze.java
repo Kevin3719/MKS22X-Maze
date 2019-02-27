@@ -27,6 +27,8 @@ public class Maze{
 
     public Maze(String filename) throws FileNotFoundException{
         //COMPLETE CONSTRUCTOR
+         Scanner sc1 = new Scanner(new File("test"));
+         int length = 
     }
 
 
