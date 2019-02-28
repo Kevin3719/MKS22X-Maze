@@ -6,6 +6,8 @@ public class Maze{
 
     private char[][]maze;
     private boolean animate;//false by default
+    private int startrow;
+    private int startcol;
 
     /*Constructor loads a maze text file, and sets animate to false by default.
 
@@ -46,6 +48,10 @@ public class Maze{
          for (int i =0; i < row; i++) {
            placeholder = sc2.nextLine();
            for (int j = 0; j < col; j++) {
+             if (maze[i][j] == 'S') {
+               startrow = i;
+               startcol = j;
+             }
              maze[i][j] = placeholder.charAt(j);
            }
          }
@@ -60,10 +66,6 @@ public class Maze{
         output += "\n";
       }
       return output;
-
-
-
-
     }
     private void wait(int millis){
          try {
@@ -100,10 +102,10 @@ public class Maze{
     public int solve(){
 
             //find the location of the S.
-
+            //already found
 
             //erase the S
-
+            maze[startrow][startcol] = ' ';
 
             //and start solving at the location of the s.
 
@@ -138,6 +140,9 @@ public class Maze{
             System.out.println(this);
 
             wait(20);
+        }
+        if(maze[row][col] == 'S') {
+          return 1;
         }
 
         //COMPLETE SOLVE
