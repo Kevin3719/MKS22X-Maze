@@ -27,11 +27,44 @@ public class Maze{
 
     public Maze(String filename) throws FileNotFoundException{
         //COMPLETE CONSTRUCTOR
-         Scanner sc1 = new Scanner(new File("test"));
-         int length = 
+        try {
+         Scanner sc1 = new Scanner(new File(filename));
+         int row = 0;
+         int col = 0;
+         if (sc1.hasNextLine()) {
+           col = sc1.nextLine().length();
+           row = 1;
+         }
+         while (sc1.hasNextLine()) {
+           row += 1;
+           sc1.nextLine();
+         }
+         maze = new char[row][col];
+         String placeholder = "";
+         Scanner sc2 = new Scanner(new File(filename));
+
+         for (int i =0; i < row; i++) {
+           placeholder = sc2.nextLine();
+           for (int j = 0; j < col; j++) {
+             maze[i][j] = placeholder.charAt(j);
+           }
+         }
+       } catch (FileNotFoundException e) {}
     }
+    public String toString() {
+      String output = "";
+      for (int i= 0; i < maze.length; i++) {
+        for (int j = 0; j < maze[0].length; j++) {
+          output += maze[i][j];
+        }
+        output += "\n";
+      }
+      return output;
 
 
+
+
+    }
     private void wait(int millis){
          try {
              Thread.sleep(millis);
@@ -75,7 +108,7 @@ public class Maze{
             //and start solving at the location of the s.
 
             //return solve(???,???);
-
+            return -1;
     }
 
     /*
