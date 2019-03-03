@@ -48,11 +48,11 @@ public class Maze{
          for (int i =0; i < row; i++) {
            placeholder = sc2.nextLine();
            for (int j = 0; j < col; j++) {
+             maze[i][j] = placeholder.charAt(j);
              if (maze[i][j] == 'S') {
                startrow = i;
                startcol = j;
              }
-             maze[i][j] = placeholder.charAt(j);
            }
          }
        } catch (FileNotFoundException e) {}
@@ -105,12 +105,14 @@ public class Maze{
             //already found
 
             //erase the S
+            animate = true;
+            System.out.println(startrow);
+            System.out.println(startcol);
             maze[startrow][startcol] = ' ';
-
+            return solve(startrow,startcol,0);
             //and start solving at the location of the s.
 
             //return solve(???,???);
-            return -1;
     }
 
     /*
@@ -130,9 +132,7 @@ public class Maze{
 
         All visited spots that are part of the solution are changed to '@'
     */
-    private int solve(int row, int col){ //you can add more parameters since this is private
-
-
+    private int solve(int row, int col, int count){ //you can add more parameters since this is private
         //automatic animation! You are welcome.
         if(animate){
 
@@ -141,10 +141,32 @@ public class Maze{
 
             wait(20);
         }
-        if(maze[row][col] == 'S') {
-          return 1;
+        if (maze[row][col] == '@' || maze[row][col] == '#' || maze[row][col] == '.') {
+          return 0;
         }
-
+        if (maze[row][col] == 'E') {
+          return count;
+        }
+        if (maze[row][col] == ' ') {
+          maze[row][col] = '@';
+        }
+        int right =  solve(row, col + 1, count + 1);
+        if (right > 0) {
+          return right;
+        }
+        int left =  solve(row, col - 1, count + 1);
+        if (left > 0) {
+          return left;
+        }
+        int top =  solve(row + 1, col, count + 1);
+        if (top > 0) {
+          return top;
+        }
+        int bottom =  solve(row - 1, col, count + 1);
+        if (bottom > 0) {
+          return bottom;
+        }
+        maze[row][col] = '.';
         //COMPLETE SOLVE
 
         return -1; //so it compiles
