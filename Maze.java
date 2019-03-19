@@ -105,9 +105,9 @@ public class Maze{
             //already found
 
             //erase the S
-            animate = true;
-            System.out.println(startrow);
-            System.out.println(startcol);
+            // animate = true;
+            // System.out.println(startrow);
+            // System.out.println(startcol);
             maze[startrow][startcol] = ' ';
             return solve(startrow,startcol,0);
             //and start solving at the location of the s.
